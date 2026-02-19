@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MakeMyTrip - India's Leading Travel Company</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-plane-departure"></i> MakeMyTrip
+        </div>
+        <div class="nav-menu">
+            <a href="#" onclick="showSection('search')"><i class="fas fa-search"></i> Search</a>
+            <a href="#" onclick="showSection('offers')"><i class="fas fa-gift"></i> Offers</a>
+            <a href="#" onclick="loadBookingHistory()"><i class="fas fa-ticket-alt"></i> My Trips</a>
+        </div>
+        <div class="nav-links">
+            <span id="userEmail" class="user-email"></span>
+            <button id="logoutBtn" class="logout-btn" style="display:none;"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+    </nav>
+
+    <div class="hero-section" id="heroSection">
+        <div class="hero-content">
+            <h1><i class="fas fa-globe-asia"></i> Book Domestic and International Flights</h1>
+            <p>Lowest Fares Guaranteed | 24/7 Support | Instant Confirmation</p>
+            <div class="hero-stats">
+                <div class="stat"><i class="fas fa-users"></i> 10M+ Happy Customers</div>
+                <div class="stat"><i class="fas fa-plane"></i> 500+ Airlines</div>
+                <div class="stat"><i class="fas fa-map-marked-alt"></i> 1000+ Destinations</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="authSection" class="auth-section">
+            <div class="auth-card">
+                <div class="auth-tabs">
+                    <button class="tab active" onclick="showLogin()"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <button class="tab" onclick="showRegister()"><i class="fas fa-user-plus"></i> Register</button>
+                </div>
+                
+                <div id="loginForm" class="form-container">
+                    <h2>Welcome Back!</h2>
+                    <input type="email" id="loginEmail" placeholder="📧 Enter Email" required>
+                    <input type="password" id="loginPassword" placeholder="🔒 Enter Password" required>
+                    <button onclick="login()" class="btn-primary"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <p class="demo-info">💡 Demo: test@test.com / test123</p>
+                </div>
+
+                <div id="registerForm" class="form-container" style="display:none;">
+                    <h2>Create Your Account</h2>
+                    <input type="text" id="regName" placeholder="👤 Full Name" required>
+                    <input type="email" id="regEmail" placeholder="📧 Email Address" required>
+                    <input type="password" id="regPassword" placeholder="🔒 Password (min 6 chars)" required>
+                    <input type="tel" id="regPhone" placeholder="📱 Phone Number (10 digits)" required>
+                    <button onclick="register()" class="btn-primary"><i class="fas fa-user-plus"></i> Register</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mainSection" style="display:none;">
+            <!-- Offers Section -->
+            <div id="offersSection" class="offers-section" style="display:none;">
+                <h2><i class="fas fa-gift"></i> Exclusive Offers</h2>
+                <div class="offers-grid">
+                    <div class="offer-card">
+                        <div class="offer-badge">SAVE 20%</div>
+                        <h3>First Booking Offer</h3>
+                        <p>Get flat 20% off on your first flight booking</p>
+                        <code>FIRST20</code>
+                    </div>
+                    <div class="offer-card">
+                        <div class="offer-badge">SAVE ₹1000</div>
+                        <h3>Weekend Special</h3>
+                        <p>Save ₹1000 on weekend flights</p>
+                        <code>WEEKEND1000</code>
+                    </div>
+                    <div class="offer-card">
+                        <div class="offer-badge">SAVE 15%</div>
+                        <h3>Group Booking</h3>
+                        <p>15% off on bookings for 4+ passengers</p>
+                        <code>GROUP15</code>
+                    </div>
+                    <div class="offer-card">
+                        <div class="offer-badge">CASHBACK</div>
+                        <h3>Bank Offer</h3>
+                        <p>Get 10% cashback with HDFC cards</p>
+                        <code>HDFC10</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Section -->
+            <div id="searchSection">
+                <div class="search-card">
+                    <h2><i class="fas fa-search"></i> Search Flights</h2>
+                    <div class="trip-type">
+                        <label><input type="radio" name="trip" value="oneway" checked> One Way</label>
+                        <label><input type="radio" name="trip" value="roundtrip"> Round Trip</label>
+                    </div>
+                    <div class="search-form">
+                        <div class="input-group">
+                            <label><i class="fas fa-plane-departure"></i> From</label>
+                            <select id="from" class="city-select">
+                                <option value="">Select City</option>
+                                <option value="Delhi">Delhi (DEL) - Indira Gandhi Intl</option>
+                                <option value="Mumbai">Mumbai (BOM) - Chhatrapati Shivaji</option>
+                                <option value="Bangalore">Bangalore (BLR) - Kempegowda Intl</option>
+                                <option value="Hyderabad">Hyderabad (HYD) - Rajiv Gandhi Intl</option>
+                                <option value="Chennai">Chennai (MAA) - Chennai Intl</option>
+                                <option value="Kolkata">Kolkata (CCU) - Netaji Subhas</option>
+                                <option value="Pune">Pune (PNQ) - Pune Airport</option>
+                                <option value="Goa">Goa (GOI) - Dabolim Airport</option>
+                                <option value="Jaipur">Jaipur (JAI) - Jaipur Intl</option>
+                                <option value="Ahmedabad">Ahmedabad (AMD) - Sardar Vallabhbhai</option>
+                            </select>
+                        </div>
+                        <div class="swap-btn" onclick="swapCities()">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="input-group">
+                            <label><i class="fas fa-plane-arrival"></i> To</label>
+                            <select id="to" class="city-select">
+                                <option value="">Select City</option>
+                                <option value="Delhi">Delhi (DEL) - Indira Gandhi Intl</option>
+                                <option value="Mumbai">Mumbai (BOM) - Chhatrapati Shivaji</option>
+                                <option value="Bangalore">Bangalore (BLR) - Kempegowda Intl</option>
+                                <option value="Hyderabad">Hyderabad (HYD) - Rajiv Gandhi Intl</option>
+                                <option value="Chennai">Chennai (MAA) - Chennai Intl</option>
+                                <option value="Kolkata">Kolkata (CCU) - Netaji Subhas</option>
+                                <option value="Pune">Pune (PNQ) - Pune Airport</option>
+                                <option value="Goa">Goa (GOI) - Dabolim Airport</option>
+                                <option value="Jaipur">Jaipur (JAI) - Jaipur Intl</option>
+                                <option value="Ahmedabad">Ahmedabad (AMD) - Sardar Vallabhbhai</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label><i class="fas fa-calendar-alt"></i> Departure</label>
+                            <input type="date" id="travelDate" required>
+                        </div>
+                        <div class="input-group">
+                            <label><i class="fas fa-users"></i> Passengers</label>
+                            <select id="passengers">
+                                <option value="1">1 Adult</option>
+                                <option value="2">2 Adults</option>
+                                <option value="3">3 Adults</option>
+                                <option value="4">4 Adults</option>
+                                <option value="5">5 Adults</option>
+                                <option value="6">6 Adults</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label><i class="fas fa-chair"></i> Class</label>
+                            <select id="travelClass">
+                                <option value="Economy">Economy</option>
+                                <option value="Premium Economy">Premium Economy</option>
+                                <option value="Business">Business</option>
+                                <option value="First Class">First Class</option>
+                            </select>
+                        </div>
+                        <button onclick="searchFlights()" class="btn-search"><i class="fas fa-search"></i> Search Flights</button>
+                    </div>
+                </div>
+
+                <div id="flightsSection" style="display:none;">
+                    <div class="flights-header">
+                        <h2><i class="fas fa-plane"></i> Available Flights</h2>
+                        <div class="filters">
+                            <select id="sortBy" onchange="sortFlights()">
+                                <option value="">Sort By</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="departure">Departure Time</option>
+                                <option value="duration">Duration</option>
+                            </select>
+                            <select id="filterAirline" onchange="filterFlights()">
+                                <option value="">All Airlines</option>
+                                <option value="IndiGo">IndiGo</option>
+                                <option value="Air India">Air India</option>
+                                <option value="SpiceJet">SpiceJet</option>
+                                <option value="Vistara">Vistara</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="flightsList"></div>
+                </div>
+
+                <div id="bookingSection" style="display:none;">
+                    <h2><i class="fas fa-ticket-alt"></i> Complete Your Booking</h2>
+                    <div class="booking-container">
+                        <div class="booking-details">
+                            <div id="selectedFlight"></div>
+                            <div class="passenger-form">
+                                <h3><i class="fas fa-user"></i> Passenger Details</h3>
+                                <div id="passengerInputs"></div>
+                            </div>
+                            <div class="promo-section">
+                                <h3><i class="fas fa-tag"></i> Apply Promo Code</h3>
+                                <div class="promo-input">
+                                    <input type="text" id="promoCode" placeholder="Enter promo code">
+                                    <button onclick="applyPromo()" class="btn-secondary">Apply</button>
+                                </div>
+                                <div id="promoMessage"></div>
+                            </div>
+                        </div>
+                        <div class="price-summary">
+                            <h3><i class="fas fa-receipt"></i> Price Summary</h3>
+                            <div class="price-row">
+                                <span>Base Fare</span>
+                                <span id="baseFare">₹0</span>
+                            </div>
+                            <div class="price-row">
+                                <span>Taxes & Fees</span>
+                                <span id="taxes">₹0</span>
+                            </div>
+                            <div class="price-row discount" id="discountRow" style="display:none;">
+                                <span>Discount</span>
+                                <span id="discount">-₹0</span>
+                            </div>
+                            <hr>
+                            <div class="price-row total">
+                                <span>Total Amount</span>
+                                <span id="totalAmount">₹0</span>
+                            </div>
+                            <button onclick="proceedToPayment()" class="btn-payment"><i class="fas fa-credit-card"></i> Proceed to Payment</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="paymentSection" style="display:none;">
+                    <h2><i class="fas fa-credit-card"></i> Payment</h2>
+                    <div class="payment-methods">
+                        <div class="payment-option" onclick="selectPayment('card')">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Credit/Debit Card</span>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment('upi')">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>UPI</span>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment('netbanking')">
+                            <i class="fas fa-university"></i>
+                            <span>Net Banking</span>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment('wallet')">
+                            <i class="fas fa-wallet"></i>
+                            <span>Wallet</span>
+                        </div>
+                    </div>
+                    <div id="paymentForm"></div>
+                </div>
+
+                <div id="confirmationSection" style="display:none;">
+                    <div class="confirmation-card">
+                        <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+                        <h2>Booking Confirmed!</h2>
+                        <div id="bookingConfirmation"></div>
+                        <div class="confirmation-actions">
+                            <button onclick="downloadTicket()" class="btn-primary"><i class="fas fa-download"></i> Download Ticket</button>
+                            <button onclick="emailTicket()" class="btn-secondary"><i class="fas fa-envelope"></i> Email Ticket</button>
+                            <button onclick="resetBooking()" class="btn-secondary"><i class="fas fa-search"></i> Book Another Flight</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-card">
+                <h2><i class="fas fa-history"></i> My Bookings</h2>
+                <button onclick="loadBookingHistory()" class="btn-secondary"><i class="fas fa-sync-alt"></i> Refresh</button>
+                <div id="historyList"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>India's leading travel company</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p><i class="fas fa-phone"></i> 1800-123-4567</p>
+                <p><i class="fas fa-envelope"></i> support@makemytrip.com</p>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-youtube"></i>
+                </div>
+            </div>
+        </div>
+        <p class="copyright">© 2024 MakeMyTrip. All rights reserved.</p>
+    </footer>
+
+    <div id="message" class="message"></div>
+    <div id="loader" class="loader" style="display:none;">
+        <div class="spinner"></div>
+        <p>Please wait...</p>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
